@@ -78,6 +78,9 @@ conf.registerGlobalValue(ChannelLogger.directories, 'network',
 conf.registerGlobalValue(ChannelLogger.directories, 'channel',
     registry.Boolean(True, """Determines whether the bot will use a channel
     directory if using directories."""))
+conf.registerChannelValue(ChannelLogger, 'noHashPrefix',
+    registry.Boolean(False, """Determines whether the channel log directories
+    and files will include the '#' prefix or not."""))
 conf.registerGlobalValue(ChannelLogger.directories, 'timestamp',
     registry.Boolean(False, """Determines whether the bot will use a timestamp
     (determined by supybot.plugins.ChannelLogger.directories.timestamp.format)

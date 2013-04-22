@@ -103,11 +103,18 @@ class ChannelLogger(callbacks.Plugin):
         format = self.registryValue('filenameTimestamp', channel)
         return time.strftime(format)
 
+    # Returns channel name with or without '#' prefix depending on config
+    def getChannelName(self, channel):
+        if self.registryValue('noHashPrefix', channel):
+            return channel[1:]
+        else:
+            return channel
+
     def getLogName(self, channel):
         if self.registryValue('rotateLogs', channel):
-            return '%s.%s.log' % (channel, self.logNameTimestamp(channel))
+            return '%s.%s.log' % (self.getChannelName(channel), self.logNameTimestamp(channel))
         else:
-            return '%s.log' % channel
+            return '%s.log' % self.getChannelName(channel)
 
     def getLogDir(self, irc, channel):
         logDir = conf.supybot.directories.log.dirize(self.name())
@@ -115,7 +122,7 @@ class ChannelLogger(callbacks.Plugin):
             if self.registryValue('directories.network'):
                 logDir = os.path.join(logDir,  irc.network)
             if self.registryValue('directories.channel'):
-                logDir = os.path.join(logDir, channel)
+                logDir = os.path.join(logDir, self.getChannelName(channel))
             if self.registryValue('directories.timestamp'):
                 format = self.registryValue('directories.timestamp.format')
                 timeDir =time.strftime(format)

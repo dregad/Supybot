@@ -42,7 +42,9 @@ __author__ = supybot.authors.jemfinch
 
 # This is a dictionary mapping supybot.Author instances to lists of
 # contributions.
-__contributors__ = {}
+__contributors__ = {
+    supybot.Author('Damien Regad', 'dregad', 'dr_mantis@regad.org'): ['noHashPrefix config']
+}
 
 import config
 import plugin
